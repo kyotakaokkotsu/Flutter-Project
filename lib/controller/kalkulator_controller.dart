@@ -11,6 +11,7 @@ class KalkulatorController extends GetxController {
       "hasil jumlah",
       "${hasilTambah.toString()}",
       snackPosition: SnackPosition.BOTTOM,
+    
     );
   }
 

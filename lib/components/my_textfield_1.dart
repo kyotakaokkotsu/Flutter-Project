@@ -22,8 +22,18 @@ class MyTextfield extends StatelessWidget {
       child: TextField(
         controller: txtController,
         obscureText: obscureText,
+        style: const TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 16,
+          letterSpacing: 1.2,
+        ),
         decoration: InputDecoration(
           hintText: myHint,
+          hintStyle: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 15,
+            letterSpacing: 1.2,
+          ),
         ),
       ),
     );

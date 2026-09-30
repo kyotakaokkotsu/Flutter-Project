@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:application_project/components/kuro_appbar.dart';
 import 'package:application_project/components/my_textfield_1.dart';
-import 'package:application_project/components/forgot_register.dart';
 import 'package:application_project/components/login_button.dart';
 import 'package:application_project/components/my_textbutton.dart';
 
