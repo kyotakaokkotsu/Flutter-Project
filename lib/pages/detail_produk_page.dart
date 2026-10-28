@@ -14,9 +14,7 @@ class DetailProdukPage extends StatelessWidget {
     final produk = controller.produk;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Detail Produk"),
-      ),
+      appBar: AppBar(title: const Text("Detail Produk")),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(15),
@@ -34,7 +32,7 @@ class DetailProdukPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // NAMA PRODUK
+                // NAMA 
                 Text(
                   produk.namaProduk,
                   style: const TextStyle(
@@ -46,51 +44,48 @@ class DetailProdukPage extends StatelessWidget {
 
                 const SizedBox(height: 15),
 
-                // GAMBAR PRODUK
+                // GAMBAR 
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(25),
 
-                  child: Image.network(
-                    produk.imageUrl,
+                  child: Container(
                     width: double.infinity,
                     height: 220,
-                    fit: BoxFit.contain,
+                    color: Colors.white,
+                    child: Image.network(
+                      produk.imageUrl,
+                      width: double.infinity,
+                      height: 220,
+                      fit: BoxFit.contain,
 
-                    loadingBuilder: (
-                      context,
-                      child,
-                      loadingProgress,
-                    ) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
 
-                      return const SizedBox(
-                        height: 220,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
+                        return const SizedBox(
+                          height: 220,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
 
-                    errorBuilder: (
-                      context,
-                      error,
-                      stackTrace,
-                    ) {
-                      return const SizedBox(
-                        height: 220,
-                        child: Center(
-                          child: Icon(
-                            Icons.image_not_supported,
-                            color: Colors.white,
-                            size: 60,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const SizedBox(
+                          height: 220,
+                          child: Center(
+                            child: Icon(
+                              Icons.image_not_supported,
+                              color: Colors.white,
+                              size: 60,
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
 
@@ -99,10 +94,7 @@ class DetailProdukPage extends StatelessWidget {
                 // HARGA
                 const Text(
                   "Harga",
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 15,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 15),
                 ),
 
                 const SizedBox(height: 5),
@@ -167,11 +159,7 @@ class DetailProdukPage extends StatelessWidget {
                 // RATING
                 Row(
                   children: [
-                    const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                      size: 25,
-                    ),
+                    const Icon(Icons.star, color: Colors.amber, size: 25),
 
                     const SizedBox(width: 8),
 
@@ -202,10 +190,7 @@ class DetailProdukPage extends StatelessWidget {
 
                 Text(
                   produk.namaToko,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 15,
-                  ),
+                  style: const TextStyle(color: Colors.white70, fontSize: 15),
                 ),
               ],
             ),

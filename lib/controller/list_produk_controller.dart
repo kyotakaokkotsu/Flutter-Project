@@ -2,7 +2,7 @@ import 'package:application_project/models/produk_model.dart';
 import 'package:get/get.dart';
 
 class ListProdukController extends GetxController {
-  List<ProdukModel> listProduk = [
+  RxList<ProdukModel> listProduk = [
     ProdukModel(
       namaProduk: "Samsung Galaxy Fold",
       harga: "10 juta",
@@ -62,5 +62,5 @@ class ListProdukController extends GetxController {
       imageUrl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4MmgrerpZp5veeQ9k1ZlgIFMWyIS9BFWNfVY7K0EPQ&s=10",
     ),
-  ];
+].obs;
 }
