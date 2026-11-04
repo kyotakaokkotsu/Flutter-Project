@@ -4,6 +4,7 @@ import 'package:application_project/pages/registration_page.dart';
 import 'package:application_project/pages/detail_produk_page.dart';
 import 'package:application_project/pages/main_menu_page.dart';
 import 'package:application_project/pages/menu_drawer_page.dart';
+import 'package:application_project/pages/login_clone_fix.dart';
 import 'package:get/get.dart';
 
 class Routes {
@@ -13,6 +14,7 @@ class Routes {
   static const String detailProduk = "/detailProduk";
   static const String mainMenuPage = "/mainMenuPage";
   static const String menuDrawerPage = "/menuDrawerPage";
+  static const String loginClone = "/loginClone";
 
   static final myPages = [
     GetPage(name: registration, page: () => RegistrationPage()),
@@ -21,5 +23,6 @@ class Routes {
     GetPage(name: detailProduk, page: () => DetailProdukPage()),
     GetPage(name: mainMenuPage, page: () => MainMenuPage()),
     GetPage(name: menuDrawerPage, page: () => MenuDrawerPage()),
+    GetPage(name: loginClone, page: () => LoginCloneFix()),
   ];
 }

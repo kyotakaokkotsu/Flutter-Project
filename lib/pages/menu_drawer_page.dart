@@ -1,4 +1,3 @@
-
 import 'package:application_project/controller/menu_drawer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,10 +23,8 @@ class MenuDrawerPage extends StatelessWidget {
           child: Column(
             children: [
               UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
-                  color: appColor,
-                ),
-                accountName: const Text("My Application"),
+                decoration: BoxDecoration(color: appColor),
+                accountName: const Text("Yusuf Morla Lagamani"),
                 accountEmail: const Text("Navigation Menu"),
                 currentAccountPicture: const CircleAvatar(
                   child: Icon(Icons.person, size: 35),

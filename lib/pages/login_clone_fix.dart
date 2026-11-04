@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:application_project/controller/login_clone_controller.dart';
 import 'package:application_project/components/kuro_appbar.dart';
 import 'package:application_project/components/my_textfield_1.dart';
 import 'package:application_project/components/login_button.dart';
@@ -8,17 +10,12 @@ import 'package:application_project/components/my_textbutton.dart';
 class LoginCloneFix extends StatelessWidget {
   LoginCloneFix({super.key});
 
-  // Controller untuk email
-  final TextEditingController emailController = TextEditingController();
-
-  // Controller untuk password
-  final TextEditingController passwordController = TextEditingController();
+  final loginController = Get.put(LoginCloneController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 235, 234, 234),
-
       appBar: const KuroAppBar(),
 
       body: Center(
@@ -26,13 +23,13 @@ class LoginCloneFix extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             MyTextfield(
-              myHint: "Please enter your email address",
-              txtController: emailController,
+              myHint: "Please enter your username",
+              txtController: loginController.txtUsername,
             ),
 
             MyTextfield(
               myHint: "Enter password",
-              txtController: passwordController,
+              txtController: loginController.txtPassword,
               obscureText: true,
             ),
 
@@ -44,7 +41,9 @@ class LoginCloneFix extends StatelessWidget {
                     print("Forgot Password ditekan");
                   },
                 ),
+
                 const Spacer(),
+
                 MyTextButton(
                   text: "Register now",
                   onPressed: () {
@@ -54,11 +53,15 @@ class LoginCloneFix extends StatelessWidget {
               ],
             ),
 
-            LoginButton(
-              onPressed: () {
-                print("Email: ${emailController.text}");
-                print("Password: ${passwordController.text}");
-              },
+            // Kondisi loading dan tombol login
+            Obx(
+              () => loginController.isLoading.value
+                  ? const CircularProgressIndicator()
+                  : LoginButton(
+                      onPressed: () {
+                        loginController.login();
+                      },
+                    ),
             ),
           ],
         ),
