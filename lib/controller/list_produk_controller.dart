@@ -1,8 +1,9 @@
 
-import 'package:application_project/models/produk_model.dart';
-import 'package:application_project/models/data_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:application_project/models/produk_model.dart';
+import 'package:application_project/models/data_model.dart';
 
 class ListProdukController extends GetxController {
   RxList<ProdukModel> listProduk = <ProdukModel>[].obs;
@@ -13,8 +14,6 @@ class ListProdukController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    // Mengambil data API secara otomatis
     fetchProduk();
   }
 
@@ -26,42 +25,35 @@ class ListProdukController extends GetxController {
       errorMessage.value = '';
 
       final url = Uri.parse(
-        "https://www.thesportsdb.com/api/v1/json/123/searchteams.php?t=Arsenal",
+        'https://www.freetogame.com/api/games',
       );
 
-      final response = await http.get(url).timeout(
-        const Duration(seconds: 20),
-      );
+      final response = await http
+          .get(url)
+          .timeout(const Duration(seconds: 20));
 
       if (response.statusCode == 200) {
-        // Parsing JSON menggunakan data_model
-        final data = dataModelFromJson(response.body);
+        // Mengubah JSON menjadi List<DataModel>
+        final List<DataModel> data =
+            dataModelFromJson(response.body);
 
-        // Mengubah data API menjadi ProdukModel
-        final hasilProduk = data.teams.map((team) {
+        // Mengubah DataModel menjadi ProdukModel
+        final hasilProduk = data.map((game) {
           return ProdukModel(
-            namaProduk: team['strTeam'] ?? 'Nama tim tidak tersedia',
-
-            harga: team['strLeague'] ?? 'Liga tidak tersedia',
-
-            deskripsi: team['strDescriptionEN'] ??
-                'Deskripsi tidak tersedia',
-
-            review: team['strStadium'] ?? 'Stadion tidak tersedia',
-
+            namaProduk: game.title,
+            harga: 'Free to Play',
+            deskripsi: game.shortDescription,
+            review: game.developer,
             rating: 0.0,
-
-            namaToko: team['strCountry'] ?? 'Negara tidak tersedia',
-
-            imageUrl: team['strBadge'] ?? '',
+            namaToko: game.publisher,
+            imageUrl: game.thumbnail,
           );
         }).toList();
 
         if (hasilProduk.isEmpty) {
           listProduk.clear();
-          errorMessage.value = 'Data tim tidak ditemukan';
+          errorMessage.value = 'Data game tidak ditemukan';
         } else {
-          // Memasukkan seluruh hasil API ke dalam RxList
           listProduk.assignAll(hasilProduk);
         }
       } else {
@@ -73,8 +65,8 @@ class ListProdukController extends GetxController {
       errorMessage.value = e.toString();
 
       Get.snackbar(
-        "Gagal Mengambil Data",
-        "Terjadi kesalahan: $e",
+        'Gagal Mengambil Data',
+        'Terjadi kesalahan: $e',
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
