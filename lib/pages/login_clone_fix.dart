@@ -53,7 +53,6 @@ class LoginCloneFix extends StatelessWidget {
               ],
             ),
 
-            // Kondisi loading dan tombol login
             Obx(
               () => loginController.isLoading.value
                   ? const CircularProgressIndicator()

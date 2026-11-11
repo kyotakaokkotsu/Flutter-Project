@@ -1,15 +1,22 @@
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:application_project/routes.dart';
+import 'package:application_project/models/login_model.dart';
 
 class LoginCloneController extends GetxController {
   TextEditingController txtUsername = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
 
   var isLoading = false.obs;
+
+  var loginModel = LoginModel(
+    status: false,
+    message: "",
+    token: "",
+  ).obs;
 
   Future<void> login() async {
     if (txtUsername.text.trim().isEmpty ||
@@ -39,34 +46,40 @@ class LoginCloneController extends GetxController {
       ).timeout(const Duration(seconds: 20));
 
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
 
-        if (data['status'] == true) {
+        // Mengubah JSON response menjadi LoginModel
+        loginModel.value = loginModelFromJson(response.body);
+
+        if (loginModel.value.status == true) {
           Get.snackbar(
             "Berhasil",
-            data['message'] ?? "Login berhasil",
+            loginModel.value.message,
           );
 
-          // Tutup semua halaman sebelumnya
-          // dan pindah ke Navigation Drawer
+          // Pindah ke Menu Drawer
+          // dan menghapus semua halaman sebelumnya
           Get.offAllNamed(Routes.menuDrawerPage);
+
         } else {
           Get.snackbar(
             "Gagal",
-            data['message'] ?? "Username atau password salah",
+            loginModel.value.message,
           );
         }
+
       } else {
         Get.snackbar(
           "Gagal",
           "Terjadi kesalahan pada server",
         );
       }
+
     } catch (e) {
       Get.snackbar(
         "Gagal",
         "Tidak dapat terhubung ke server: $e",
       );
+
     } finally {
       isLoading.value = false;
     }
