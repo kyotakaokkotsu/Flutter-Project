@@ -33,11 +33,11 @@ class ListProdukController extends GetxController {
           .timeout(const Duration(seconds: 20));
 
       if (response.statusCode == 200) {
-        // Mengubah JSON menjadi List<DataModel>
+
         final List<DataModel> data =
             dataModelFromJson(response.body);
 
-        // Mengubah DataModel menjadi ProdukModel
+
         final hasilProduk = data.map((game) {
           return ProdukModel(
             namaProduk: game.title,
